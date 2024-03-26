@@ -19,7 +19,7 @@ export const getToken = async () => {
 
   const streamClient = new StreamClient(streamApiKey, streamApiSecret);
 
-  const expirationToken = Math.floor(Date.now() / 1000) + 60 * 60;
+  const expirationToken = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
 
   const issuedAt = Math.floor(Date.now() / 1000) - 60;
 

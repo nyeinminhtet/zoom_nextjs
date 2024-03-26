@@ -1,7 +1,10 @@
+import "@stream-io/video-react-sdk/dist/css/styles.css";
+import "./globals.css";
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+
 import Navbar from "@/components/Navbar";
 import ClientProvider from "../components/providers/ClientProvider";
 

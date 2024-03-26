@@ -13,8 +13,6 @@ export const getToken = async () => {
 
   const user = await currentUser();
 
-  console.log("Generating token for user", user?.id);
-
   if (!user) {
     throw new Error("User not authenticated");
   }
@@ -26,8 +24,6 @@ export const getToken = async () => {
   const issuedAt = Math.floor(Date.now() / 1000) - 60;
 
   const token = streamClient.createToken(user.id, expirationToken, issuedAt);
-
-  console.log("Successfully generated token", token);
 
   return token;
 };

@@ -1,9 +1,9 @@
-import Image from "next/image";
+import CreateMeetingPage from "../components/CreateMeetingPage";
 
 export default function Home() {
   return (
     <>
-      <h1>hello</h1>
+      <CreateMeetingPage />
     </>
   );
 }

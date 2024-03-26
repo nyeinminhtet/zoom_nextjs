@@ -9,7 +9,7 @@ import {
 } from "@stream-io/video-react-sdk";
 import { Loader2 } from "lucide-react";
 import { nanoid } from "nanoid";
-import { getToken } from "./actions";
+import { getToken } from "../../actions/actions";
 
 interface ClientProviderProps {
   children: ReactNode;

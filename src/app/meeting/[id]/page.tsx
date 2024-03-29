@@ -15,8 +15,8 @@ export const generateMetadata = ({ params: { id } }: PageProps): Metadata => {
   };
 };
 
-const Page = ({ params: { id } }: PageProps) => {
+const page = ({ params: { id } }: PageProps) => {
   return <MeetingPage id={id} />;
 };
 
-export default Page;
+export default page;

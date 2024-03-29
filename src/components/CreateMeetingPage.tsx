@@ -4,13 +4,19 @@ import React, { useState } from "react";
 
 import { useUser } from "@clerk/nextjs";
 
-import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import {
+  Call,
+  MemberRequest,
+  useStreamVideoClient,
+} from "@stream-io/video-react-sdk";
 import { Loader2 } from "lucide-react";
 
 import DescriptionInput from "./DescriptionInput";
 import StartTimeInput from "./StartTimeInput";
 import ParticipantsInput from "./ParticipantsInput";
 import MeetingLink from "./MeetingLink";
+import { getUserIds } from "@/actions/getUserIds";
+import Button from "./Button";
 
 export default function CreateMeetingPage() {
   const [description, setDescription] = useState("");
@@ -28,10 +34,29 @@ export default function CreateMeetingPage() {
     setLoading(true);
     try {
       const id = crypto.randomUUID();
-      const call = client.call("default", id);
+      const callType = participant ? "private-meeting" : "default";
+      const call = client.call(callType, id);
+
+      const memberEmails = participant.split(",").map((email) => email.trim());
+
+      const memberIds = await getUserIds(memberEmails);
+
+      const members: MemberRequest[] = memberIds
+        .map((id) => ({
+          user_id: id,
+          role: "call_member",
+        }))
+        .concat({ user_id: user.id, role: "call_member" })
+        .filter(
+          (v, i, a) => a.findIndex((v1) => v1.user_id === v.user_id) === i,
+        );
+
+      const starts_at = new Date(startTimeInput || Date.now()).toISOString();
 
       await call.getOrCreate({
         data: {
+          starts_at,
+          members: members,
           custom: { description: description },
         },
       });
@@ -60,13 +85,10 @@ export default function CreateMeetingPage() {
 
         <ParticipantsInput value={participant} onChange={setParticipant} />
 
-        <button
-          onClick={createMeeting}
-          className="mx-auto flex items-center justify-center gap-x-2 rounded-lg bg-blue-500 p-3 text-white"
-        >
+        <Button onClick={createMeeting} className="w-full">
           Create Meeting{" "}
           {loading && <Loader2 className="animate-spin text-gray-300" />}
-        </button>
+        </Button>
       </div>
 
       {call && <MeetingLink call={call} />}

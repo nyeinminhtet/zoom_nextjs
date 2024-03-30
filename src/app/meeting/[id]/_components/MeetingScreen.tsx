@@ -5,6 +5,7 @@ import MeetingEndScreen from "./MeetingEndScreen";
 import UpcomingMeetingScreen from "./UpcomingMeetingScreen";
 import useStreamCall from "@/hooks/useStreamCall";
 import SetUpUI from "./SetUpUI";
+import CallUI from "./CallUI";
 
 const MeetingScreen = () => {
   const { useCallEndedAt, useCallStartedAt } = useCallStateHooks();
@@ -42,11 +43,7 @@ const MeetingScreen = () => {
         </p>
       )}
 
-      {setUpComplete ? (
-        <SpeakerLayout />
-      ) : (
-        <SetUpUI onSetupComplete={handleSetUp} />
-      )}
+      {setUpComplete ? <CallUI /> : <SetUpUI onSetupComplete={handleSetUp} />}
     </div>
   );
 };

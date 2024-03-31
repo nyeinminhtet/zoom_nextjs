@@ -35,6 +35,8 @@ const MeetingScreen = () => {
     setSetUpComplete(true);
   };
 
+  console.log({ setUpComplete });
+
   return (
     <div className="space-y-6">
       {description && (

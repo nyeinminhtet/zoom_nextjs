@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import MyMeetings from "./_componetns/MyMeetings";
 
-export const metada: Metadata = {
+export const metadata: Metadata = {
   title: "My Meetings",
 };
 
